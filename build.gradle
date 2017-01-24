@@ -1,0 +1,61 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+description = POM_DESCRIPTION
+def snapshot_url = REPOSITORY_URL
+def user = USER_NAME
+def pwd = USER_PASSWORD
+def rep_url = REPOSITORY_URL;
+subprojects { project ->
+
+    repositories {
+
+        mavenLocal()        //使用本地仓库
+        maven {             //使用公司私服
+            url rep_url
+        }
+        mavenCentral()      //使用中央仓库
+        jcenter()
+    }
+
+    buildscript {
+        repositories {
+
+            mavenLocal()        //使用本地仓库
+            maven {             //使用公司私服
+                url rep_url
+            }
+            mavenCentral()      //使用中央仓库
+            jcenter()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:2.2.0'
+
+            // the latest version of the android-apt plugin
+            classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+            // NOTE: Do not place your application dependencies here; they belong
+            // in the individual module build.gradle files
+        }
+    }
+}
+
+
+ext {
+    minSdkVersion = 14
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.0'
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_7
+    targetCompatibilityVersion = JavaVersion.VERSION_1_7
+    versionCode = 100
+    versionName = VERSION_NAME
+    surl = snapshot_url
+    suser = user
+    spwd = pwd
+}
+
+ext.deps = [
+        appcompat: 'com.android.support:appcompat-v7:25.1.0',
+]
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
